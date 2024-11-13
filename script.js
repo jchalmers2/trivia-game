@@ -5,11 +5,30 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("trivia-form");
     const questionContainer = document.getElementById("question-container");
     const newPlayerButton = document.getElementById("new-player");
+    const usernameForm = document.getElementById("username-form");
 
     // Initialize the game
-    // checkUsername(); Uncomment once completed
+    checkUsername(); // Check for existing username session on load
     fetchQuestions();
     displayScores();
+
+    /**
+     * Checks for a username cookie and updates the UI accordingly.
+     * Toggles the visibility of the username form based on the presence of a username cookie.
+     */
+    function checkUsername() {
+        const username = getCookie("username");
+
+        if (username) {
+            // Hide the username form if a username cookie is present
+            usernameForm.style.display = "none";
+            questionContainer.style.display = "block"; // Ensure questions are shown
+        } else {
+            // Show the username form if no session is found
+            usernameForm.style.display = "block";
+            questionContainer.style.display = "none"; // Hide questions until username is set
+        }
+    }
 
     /**
      * Fetches trivia questions from the API and displays them.
@@ -104,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         //... form submission logic including setting cookies and calculating score
     }
- 
+
     function setCookie(name, value, days) {
         const date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
