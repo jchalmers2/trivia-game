@@ -125,6 +125,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function calculateScore() {
+        let score = 0;
+
+        currentQuestions.forEach((question, index) => {
+            const selectedAnswer = document.querySelector(
+                `input[name="answer${index}"]:checked`
+            );
+            if (selectedAnswer) {
+                if (selectedAnswer.value === question.correct_answer) {
+                    score++;
+                }
+            }
+        });
+
+        return score;
+    }
+
     function setCookie(name, value, days) {
         const date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
