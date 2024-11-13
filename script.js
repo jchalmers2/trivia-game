@@ -142,6 +142,28 @@ document.addEventListener("DOMContentLoaded", function () {
         return score;
     }
 
+    function saveScore(username, score) {
+        let scores = JSON.parse(localStorage.getItem("scores")) || [];
+        scores.push({ username, score });
+        localStorage.setItem("scores", JSON.stringify(scores));
+        displayScores();
+    }
+
+    function displayScores() {
+        const scores = JSON.parse(localStorage.getItem("scores")) || [];
+        const tbody = document.querySelector("#score-table tbody");
+        tbody.innerHTML = scores
+            .map(
+                (score) => `
+            <tr>
+                <td>${score.username}</td>
+                <td>${score.score}</td>
+            </tr>
+        `
+            )
+            .join("");
+    }
+
     function setCookie(name, value, days) {
         const date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
