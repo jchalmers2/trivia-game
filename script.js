@@ -18,15 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     function checkUsername() {
         const username = getCookie("username");
-
         if (username) {
-            // Hide the username form if a username cookie is present
-            usernameForm.style.display = "none";
-            questionContainer.style.display = "block"; // Ensure questions are shown
-        } else {
-            // Show the username form if no session is found
-            usernameForm.style.display = "block";
-            questionContainer.style.display = "none"; // Hide questions until username is set
+            document.getElementById("username").value = username;
+            newPlayerButton.classList.remove("hidden");
         }
     }
 
